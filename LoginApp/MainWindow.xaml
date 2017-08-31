@@ -12,7 +12,18 @@
         <local:MainViewSelector x:Key="MainViewSelector">
             <local:MainViewSelector.ContentTemplate>
                 <DataTemplate DataType="{x:Type local:ContentViewModel}">
-                    <Border Background="DodgerBlue" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border Background="DodgerBlue" DataContext="{Binding PurchacesViewModel}">
+                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <Border Grid.Row="1" Background="Yellow" DataContext="{Binding OrderViewModel}">
+                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </local:MainViewSelector.ContentTemplate>
             <local:MainViewSelector.LoginTemplate>

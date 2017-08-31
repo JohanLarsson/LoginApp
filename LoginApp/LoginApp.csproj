@@ -51,6 +51,8 @@
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainViewSelector.cs" />
+    <Compile Include="OrderViewModel.cs" />
+    <Compile Include="PurchacesViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
