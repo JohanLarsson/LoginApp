@@ -1,7 +1,11 @@
 ﻿namespace LoginApp
 {
     using System;
+    using System.ComponentModel;
+    using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Markup;
+    using Ninject;
 
     public class RelayCommand : ICommand
     {
@@ -33,6 +37,55 @@
         public void Execute(object parameter)
         {
             this.execute(parameter);
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(object))]
+    public class GetExtension : MarkupExtension
+    {
+        private static readonly DependencyObject DependencyObject = new DependencyObject();
+
+        public GetExtension()
+        {
+        }
+
+        public GetExtension(Type type)
+            : this(type, false)
+        {
+        }
+
+        public GetExtension(Type type, bool isDesignTimeCreatable)
+        {
+            this.Type = type;
+            this.IsDesignTimeCreatable = isDesignTimeCreatable;
+        }
+
+        private static bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(DependencyObject);
+
+        [ConstructorArgument("type")]
+        public Type Type { get; set; }
+
+        [ConstructorArgument("isDesignTimeCreatable")]
+        public bool IsDesignTimeCreatable { get; set; } = false;
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            if (this.Type == null)
+            {
+                return null;
+            }
+
+            if (IsInDesignMode)
+            {
+                if (this.IsDesignTimeCreatable)
+                {
+                    return App.Kernel.Get(this.Type);
+                }
+
+                return null;
+            }
+
+            return App.Kernel.Get(this.Type);
         }
     }
 }

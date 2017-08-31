@@ -7,6 +7,9 @@
         Title="MainWindow"
         Width="525"
         Height="350"
+        d:DataContext="{d:DesignInstance local:MainViewModel}"
+        DataContext="{local:Get Type={x:Type local:MainViewModel},
+                                IsDesignTimeCreatable=True}"
         mc:Ignorable="d">
     <Window.Resources>
         <local:MainViewSelector x:Key="MainViewSelector">
@@ -17,12 +20,8 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Border Background="DodgerBlue" DataContext="{Binding PurchacesViewModel}">
-                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <Border Grid.Row="1" Background="Yellow" DataContext="{Binding OrderViewModel}">
-                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
+                        <local:PurchasesView Grid.Row="0" />
+                        <local:OrderView Grid.Row="1" />
                     </Grid>
                 </DataTemplate>
             </local:MainViewSelector.ContentTemplate>
@@ -33,9 +32,6 @@
             </local:MainViewSelector.LoginTemplate>
         </local:MainViewSelector>
     </Window.Resources>
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />

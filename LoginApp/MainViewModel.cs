@@ -6,13 +6,15 @@
 
     public class MainViewModel : INotifyPropertyChanged
     {
-        private readonly LoginViewModel loginViewModel = new LoginViewModel();
-        private readonly ContentViewModel contentViewModel = new ContentViewModel();
+        private readonly LoginViewModel loginViewModel;
+        private readonly ContentViewModel contentViewModel;
         private object currentViewModel;
 
-        public MainViewModel()
+        public MainViewModel(LoginViewModel loginViewModel, ContentViewModel contentViewModel)
         {
-            this.currentViewModel = this.loginViewModel;
+            this.loginViewModel = loginViewModel;
+            this.contentViewModel = contentViewModel;
+            this.currentViewModel = loginViewModel;
             this.LoginCommand = new RelayCommand(
                 _ => this.CurrentViewModel = this.contentViewModel,
                 _ => !ReferenceEquals(this.currentViewModel, this.contentViewModel));

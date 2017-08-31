@@ -2,8 +2,14 @@
 {
     public class ContentViewModel
     {
-        public PurchacesViewModel PurchacesViewModel { get; } = new PurchacesViewModel();
+        public ContentViewModel(PurchacesViewModel purchacesViewModel, OrderViewModel orderViewModel)
+        {
+            this.PurchacesViewModel = purchacesViewModel;
+            this.OrderViewModel = orderViewModel;
+        }
 
-        public OrderViewModel OrderViewModel { get; } = new OrderViewModel();
+        public PurchacesViewModel PurchacesViewModel { get; }
+
+        public OrderViewModel OrderViewModel { get; }
     }
 }
